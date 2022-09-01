@@ -2,6 +2,7 @@ package com.technokratos.service;
 
 import com.technokratos.config.ServiceTestConfig;
 import com.technokratos.dto.response.ConcertResponse;
+import com.technokratos.dto.response.page.ConcertPage;
 import com.technokratos.exception.ConcertNotFoundException;
 import com.technokratos.repository.ConcertRepository;
 import com.technokratos.service.impl.ConcertServiceImpl;
@@ -41,6 +42,9 @@ public class ConcertServiceTest {
         when(concertRepository.findById(CONCERT_ID))
                 .thenReturn(Optional.of(CONCERT_ENTITY));
 
+        when(concertRepository.findAll(CONCERT_PAGEABLE))
+                .thenReturn(CONCERT_ENTITY_PAGE);
+
         when(concertRepository.existsById(FAKE_CONCERT_ID))
                 .thenReturn(false);
     }
@@ -55,6 +59,12 @@ public class ConcertServiceTest {
     public void testSuccessfulGetConcert() {
         ConcertResponse actualResponse = concertService.getConcertById(CONCERT_ID);
         assertEquals(CONCERT_RESPONSE, actualResponse);
+    }
+
+    @Test
+    public void testSuccessfulGetConcertPage() {
+        ConcertPage actualResponse = concertService.getConcertPage(CONCERT_PAGEABLE);
+        assertEquals(CONCERT_PAGE_RESPONSE, actualResponse);
     }
 
     @Test

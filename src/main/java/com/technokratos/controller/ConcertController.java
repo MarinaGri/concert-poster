@@ -3,8 +3,10 @@ package com.technokratos.controller;
 import com.technokratos.api.ConcertApi;
 import com.technokratos.dto.request.ConcertRequest;
 import com.technokratos.dto.response.ConcertResponse;
+import com.technokratos.dto.response.page.ConcertPage;
 import com.technokratos.service.ConcertService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.UUID;
@@ -23,6 +25,11 @@ public class ConcertController implements ConcertApi {
     @Override
     public ConcertResponse getConcertById(UUID concertId) {
         return concertService.getConcertById(concertId);
+    }
+
+    @Override
+    public ConcertPage getConcertPage(Pageable pageable) {
+        return concertService.getConcertPage(pageable);
     }
 
     @Override

@@ -2,6 +2,8 @@ package com.technokratos.api;
 
 import com.technokratos.dto.request.ConcertRequest;
 import com.technokratos.dto.response.ConcertResponse;
+import com.technokratos.dto.response.page.ConcertPage;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,6 +21,10 @@ public interface ConcertApi {
     @GetMapping(value = "/{concert-id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     ConcertResponse getConcertById(@PathVariable("concert-id") UUID concertId);
+
+    @GetMapping(produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    ConcertPage getConcertPage(Pageable pageable);
 
     @PutMapping(value = "/{concert-id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
