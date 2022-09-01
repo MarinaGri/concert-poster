@@ -32,7 +32,7 @@ public class ConcertEntity extends AbstractEntity {
     @ManyToMany
     @JoinTable(name = "booking",
             joinColumns = @JoinColumn(name = "concert_id"),
-            inverseJoinColumns = @JoinColumn(name = "user_id"))
+            inverseJoinColumns = @JoinColumn(name = "account_id"))
     private Set<UserEntity> users;
 
 }
