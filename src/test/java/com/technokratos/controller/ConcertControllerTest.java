@@ -2,6 +2,7 @@ package com.technokratos.controller;
 
 import com.technokratos.config.ControllerTestConfig;
 import com.technokratos.dto.response.ConcertResponse;
+import com.technokratos.dto.response.page.ConcertPage;
 import com.technokratos.service.ConcertService;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -32,6 +33,9 @@ public class ConcertControllerTest {
         when(concertService.getConcertById(CONCERT_ID))
                 .thenReturn(CONCERT_RESPONSE);
 
+        when(concertService.getConcertPage(CONCERT_PAGEABLE))
+                .thenReturn(CONCERT_PAGE_RESPONSE);
+
         when(concertService.updateConcert(CONCERT_ID, CONCERT_REQUEST))
                 .thenReturn(CONCERT_RESPONSE);
     }
@@ -46,6 +50,12 @@ public class ConcertControllerTest {
     public void testSuccessfulGetConcert() {
         ConcertResponse actualResponse = concertController.getConcertById(CONCERT_ID);
         assertEquals(CONCERT_RESPONSE, actualResponse);
+    }
+
+    @Test
+    public void testSuccessfulGetConcertPage() {
+        ConcertPage actualResponse = concertController.getConcertPage(CONCERT_PAGEABLE);
+        assertEquals(CONCERT_PAGE_RESPONSE, actualResponse);
     }
 
     @Test

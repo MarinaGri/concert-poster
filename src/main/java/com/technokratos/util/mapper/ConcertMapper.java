@@ -7,6 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
+import java.util.List;
+
 @Mapper(componentModel = "spring")
 public interface ConcertMapper {
 
@@ -18,6 +20,8 @@ public interface ConcertMapper {
     ConcertEntity toEntity(ConcertRequest request);
 
     ConcertResponse toResponse(ConcertEntity entity);
+
+    List<ConcertResponse> toResponses(List<ConcertEntity> entity);
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
