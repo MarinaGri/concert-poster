@@ -1,5 +1,6 @@
 package com.technokratos.provider;
 
+import com.technokratos.dto.enums.Role;
 import io.jsonwebtoken.Claims;
 
 import java.util.Date;
@@ -11,7 +12,10 @@ public interface JwtAccessTokenProvider {
 
     Claims parseAccessToken(String accessToken);
 
+    Role getRoleFromAccessToken(String accessToken);
+
     Date getExpirationDateFromAccessToken(String accessToken);
 
+    String getSubjectFromAccessToken(String accessToken);
 }
 

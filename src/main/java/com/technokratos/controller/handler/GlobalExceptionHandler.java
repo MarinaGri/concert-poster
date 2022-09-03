@@ -2,6 +2,7 @@ package com.technokratos.controller.handler;
 
 import com.technokratos.dto.response.message.ExceptionMessage;
 import com.technokratos.exception.CpServiceException;
+import io.jsonwebtoken.JwtException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -44,4 +45,15 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
                         .exceptionName(exception.getClass().getSimpleName())
                         .build());
     }
+
+    @ExceptionHandler(JwtException.class)
+    public final ResponseEntity<ExceptionMessage> onJwtExceptions(JwtException jwtException) {
+
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .body(ExceptionMessage.builder()
+                        .message(jwtException.getMessage())
+                        .exceptionName(jwtException.getClass().getSimpleName())
+                        .build());
+    }
+
 }
