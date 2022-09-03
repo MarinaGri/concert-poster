@@ -1,5 +1,6 @@
 package com.technokratos.provider.impl;
 
+import com.technokratos.dto.enums.Role;
 import com.technokratos.provider.JwtAccessTokenProvider;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
@@ -13,6 +14,8 @@ import java.time.Instant;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
+import static com.technokratos.consts.SecurityConstants.ROLE;
 
 @RequiredArgsConstructor
 @Component
@@ -51,6 +54,24 @@ public class JwtAccessTokenProviderImpl implements JwtAccessTokenProvider {
             return parseAccessToken(accessToken).getExpiration();
         } catch (ExpiredJwtException e) {
             return e.getClaims().getExpiration();
+        }
+    }
+
+    @Override
+    public Role getRoleFromAccessToken(String accessToken) {
+        try {
+            return Role.valueOf((String) parseAccessToken(accessToken).get(ROLE));
+        } catch (ExpiredJwtException e) {
+            return Role.valueOf((String) e.getClaims().get(ROLE));
+        }
+    }
+
+    @Override
+    public String getSubjectFromAccessToken(String accessToken) {
+        try {
+            return parseAccessToken(accessToken).getSubject();
+        } catch (ExpiredJwtException e) {
+            return e.getClaims().getSubject();
         }
     }
 }
