@@ -1,7 +1,11 @@
 package com.technokratos.service.impl;
 
+import com.technokratos.dto.request.UserExtendedRequest;
 import com.technokratos.dto.request.UserRequest;
+import com.technokratos.dto.response.UserResponse;
+import com.technokratos.exception.CpUnauthorizedException;
 import com.technokratos.exception.UserAlreadyExistsException;
+import com.technokratos.exception.UserNotFoundException;
 import com.technokratos.model.UserEntity;
 import com.technokratos.repository.UserRepository;
 import com.technokratos.service.UserService;
@@ -23,7 +27,7 @@ public class UserServiceImpl implements UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UUID addUser(UserRequest newUser) {
+    public UUID addUser(UserExtendedRequest newUser) {
         String email = newUser.getEmail();
 
         if (userRepository.existsByEmail(email)) {
@@ -33,5 +37,23 @@ public class UserServiceImpl implements UserService {
         UserEntity user = userMapper.toEntity(newUser);
         user.setHashPassword(passwordEncoder.encode(newUser.getPassword()));
         return userRepository.save(user).getId();
+    }
+
+    @Override
+    public UserResponse login(UserRequest loginRequest) {
+        String email = loginRequest.getEmail();
+        UserEntity user = getUserByEmail(email);
+
+        if (!passwordEncoder.matches(loginRequest.getPassword(), user.getHashPassword())) {
+            throw new CpUnauthorizedException("User not found with email: " + email);
+        }
+
+        return userMapper.toResponse(user);
+    }
+
+    @Override
+    public UserEntity getUserByEmail(String email) {
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException("User not found with email: " + email));
     }
 }

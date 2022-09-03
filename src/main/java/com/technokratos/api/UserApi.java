@@ -1,6 +1,8 @@
 package com.technokratos.api;
 
+import com.technokratos.dto.request.UserExtendedRequest;
 import com.technokratos.dto.request.UserRequest;
+import com.technokratos.dto.response.TokenCoupleResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -16,6 +18,10 @@ public interface UserApi {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
-    UUID addUser(@RequestBody UserRequest newUser);
+    UUID addUser(@RequestBody UserExtendedRequest newUser);
+
+    @PostMapping(value = "/login", produces = APPLICATION_JSON_VALUE, consumes = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    TokenCoupleResponse login(@RequestBody UserRequest loginRequest);
 
 }

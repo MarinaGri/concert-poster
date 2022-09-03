@@ -20,22 +20,22 @@ import java.util.UUID;
 @MappedSuperclass
 @NoArgsConstructor
 @AllArgsConstructor
-public class AbstractEntity {
+public abstract class AbstractEntity {
 
     @Id
     @GeneratedValue(generator = "UUID")
     @GenericGenerator(name = "UUID", strategy = "org.hibernate.id.UUIDGenerator")
-    protected UUID id;
+    private UUID id;
 
     @CreationTimestamp
     @Column(name = "created_at")
-    protected Instant createdAt;
+    private Instant createdAt;
 
     @UpdateTimestamp
     @Column(name = "updated_at")
-    protected Instant updatedAt;
+    private Instant updatedAt;
 
     @Column(name = "is_deleted")
-    protected Boolean isDeleted;
+    private Boolean isDeleted;
 
 }

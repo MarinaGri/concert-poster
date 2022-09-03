@@ -1,7 +1,7 @@
 package com.technokratos.consts;
 
 import com.technokratos.dto.enums.Role;
-import com.technokratos.dto.request.UserRequest;
+import com.technokratos.dto.request.UserExtendedRequest;
 import com.technokratos.model.UserEntity;
 
 import java.util.UUID;
@@ -20,13 +20,13 @@ public class UserConst {
 
     public static final String USER_PASSWORD = "pa$swo4d!";
 
-    public static final UserRequest USER_REQUEST = UserRequest.builder()
+    public static final UserExtendedRequest USER_REQUEST = UserExtendedRequest.builder()
             .email(USER_EMAIL)
             .role(USER_ROLE)
             .password(USER_PASSWORD)
             .build();
 
-    public static final UserRequest REPEATED_USER_REQUEST = UserRequest.builder()
+    public static final UserExtendedRequest REPEATED_USER_REQUEST = UserExtendedRequest.builder()
             .email(USER_REPEATED_EMAIL)
             .role(USER_ROLE)
             .password(USER_PASSWORD)
