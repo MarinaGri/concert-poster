@@ -1,7 +1,10 @@
 package com.technokratos.provider.impl;
 
 import com.technokratos.dto.enums.Role;
+import com.technokratos.exception.token.AuthenticationHeaderException;
+import com.technokratos.model.UserEntity;
 import com.technokratos.provider.JwtAccessTokenProvider;
+import com.technokratos.service.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
@@ -27,6 +30,8 @@ public class JwtAccessTokenProviderImpl implements JwtAccessTokenProvider {
     @Value("${jwt.secret}")
     private String jwtSecret;
 
+    private final UserService userService;
+
     @Override
     public String generateAccessToken(String subject, Map<String, Object> data) {
         Map<String, Object> claims = new HashMap<>(data);
@@ -46,6 +51,17 @@ public class JwtAccessTokenProviderImpl implements JwtAccessTokenProvider {
                 .setSigningKey(jwtSecret)
                 .parseClaimsJws(accessToken)
                 .getBody();
+    }
+
+    @Override
+    public UserEntity getUserByToken(String token) {
+        try {
+            Claims claims = parseAccessToken(token);
+            String subject = claims.getSubject();
+            return userService.getUserByEmail(subject);
+        } catch (ExpiredJwtException e) {
+            throw new AuthenticationHeaderException("Token expired date error");
+        }
     }
 
     @Override

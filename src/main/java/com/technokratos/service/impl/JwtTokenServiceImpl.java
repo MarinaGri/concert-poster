@@ -52,6 +52,11 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         return generateTokenCouple(newAccessToken, newRefreshToken);
     }
 
+    @Override
+    public UserEntity getUserByToken(String token) {
+        return jwtAccessTokenProvider.getUserByToken(token);
+    }
+
     private String generateAccessToken(String subject, Role role) {
         return jwtAccessTokenProvider.generateAccessToken(
                 subject,
