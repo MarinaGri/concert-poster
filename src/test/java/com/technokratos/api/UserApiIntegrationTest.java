@@ -25,7 +25,7 @@ import java.util.UUID;
 
 import static com.technokratos.consts.SecurityConstants.BEARER;
 import static com.technokratos.consts.UserConst.*;
-import static com.technokratos.consts.ApiConst.*;
+import static com.technokratos.consts.MessageConst.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @Sql(scripts = "/sql/clear-account-table.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)

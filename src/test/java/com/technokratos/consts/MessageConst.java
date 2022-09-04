@@ -4,7 +4,7 @@ import com.technokratos.dto.response.message.ExceptionMessage;
 
 import static com.technokratos.consts.UserConst.*;
 
-public class ApiConst {
+public class MessageConst {
 
     public static final String USER_NOT_FOUND_MESSAGE = "User not found with email: ";
 
