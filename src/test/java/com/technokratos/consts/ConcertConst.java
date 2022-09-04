@@ -14,18 +14,21 @@ import java.util.UUID;
 
 public class ConcertConst {
 
-    public static final UUID CONCERT_ID = UUID.randomUUID();
-
+    public static final UUID CONCERT_ID = UUID.fromString("123e4567-e89b-12d3-a456-426655440002");
+    public static final UUID POPULAR_CONCERT_ID = UUID.fromString("123e4567-e89b-12d3-a456-426655440003");
     public static final UUID FAKE_CONCERT_ID = UUID.randomUUID();
 
     public static final String CONCERT_NAME = "Concert name";
+    public static final String CONCERT_UPDATED_NAME = "Updated name";
+    public static final String POPULAR_CONCERT_NAME = "Popular concert name";
 
     public static final String CONCERT_DESCRIPTION = "Some description";
+    public static final String CONCERT_UPDATED_DESCRIPTION = "Updated description";
 
     public static final Integer TICKETS_NUMBER = 42;
+    public static final Integer TICKETS_UPDATED_NUMBER = 10;
 
     public static final Integer TOTAL_PAGES = 1;
-
     public static final Integer CURRENT_PAGE = 0;
 
     public static final ConcertResponse CONCERT_RESPONSE = ConcertResponse.builder()
@@ -45,6 +48,12 @@ public class ConcertConst {
             .name(CONCERT_NAME)
             .description(CONCERT_DESCRIPTION)
             .ticketsNumber(TICKETS_NUMBER)
+            .build();
+
+    public static final ConcertRequest CONCERT_UPDATE_REQUEST = ConcertRequest.builder()
+            .name(CONCERT_UPDATED_NAME)
+            .description(CONCERT_UPDATED_DESCRIPTION)
+            .ticketsNumber(TICKETS_UPDATED_NUMBER)
             .build();
 
     public static final Pageable CONCERT_PAGEABLE = PageRequest.of(CURRENT_PAGE, TOTAL_PAGES);

@@ -26,7 +26,7 @@ import static com.technokratos.consts.SecurityConstants.BEARER;
 import static com.technokratos.consts.UserConst.*;
 import static org.junit.jupiter.api.Assertions.*;
 
-@Sql("/sql/add-account.sql")
+@Sql("/sql/add-accounts.sql")
 @Sql(scripts = "/sql/clear-account-table.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class JwtApiIntegrationTest extends PostgresTestContainer {
