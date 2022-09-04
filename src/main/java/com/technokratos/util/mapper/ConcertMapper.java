@@ -15,8 +15,8 @@ public interface ConcertMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "users", ignore = true)
-    @Mapping(target = "isDeleted", constant = "false")
+    @Mapping(target = "deleted", ignore = true)
+    @Mapping(target = "booking", ignore = true)
     ConcertEntity toEntity(ConcertRequest request);
 
     ConcertResponse toResponse(ConcertEntity entity);
@@ -26,8 +26,8 @@ public interface ConcertMapper {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
-    @Mapping(target = "users", ignore = true)
-    @Mapping(target = "isDeleted", constant = "false")
+    @Mapping(target = "deleted", ignore = true)
+    @Mapping(target = "booking", ignore = true)
     void updateEntity(@MappingTarget ConcertEntity entity, ConcertRequest request);
 
 }

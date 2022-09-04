@@ -1,6 +1,7 @@
 package com.technokratos.service;
 
-import com.technokratos.config.ServiceTestConfig;
+import com.technokratos.config.ConcertServiceTestConfig;
+import com.technokratos.config.UserServiceTestConfig;
 import com.technokratos.dto.response.ConcertResponse;
 import com.technokratos.dto.response.page.ConcertPage;
 import com.technokratos.exception.ConcertNotFoundException;
@@ -24,7 +25,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {
-        ServiceTestConfig.class, ConcertServiceImpl.class, ConcertMapperImpl.class
+        ConcertServiceTestConfig.class, ConcertServiceImpl.class, ConcertMapperImpl.class
 })
 public class ConcertServiceTest {
 

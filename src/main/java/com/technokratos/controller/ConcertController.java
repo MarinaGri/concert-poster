@@ -41,4 +41,9 @@ public class ConcertController implements ConcertApi {
     public void deleteConcertById(UUID concertId) {
         concertService.deleteConcert(concertId);
     }
+
+    @Override
+    public void addBookingInfo(UUID concertId, UUID userId) {
+        concertService.addBookingInfo(concertId, userId);
+    }
 }

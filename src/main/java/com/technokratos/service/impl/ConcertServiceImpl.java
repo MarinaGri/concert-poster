@@ -4,9 +4,13 @@ import com.technokratos.dto.request.ConcertRequest;
 import com.technokratos.dto.response.ConcertResponse;
 import com.technokratos.dto.response.page.ConcertPage;
 import com.technokratos.exception.ConcertNotFoundException;
+import com.technokratos.exception.TicketsSoldOutException;
 import com.technokratos.model.ConcertEntity;
+import com.technokratos.model.UserEntity;
 import com.technokratos.repository.ConcertRepository;
+import com.technokratos.service.BookingService;
 import com.technokratos.service.ConcertService;
+import com.technokratos.service.UserService;
 import com.technokratos.util.mapper.ConcertMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -23,6 +27,10 @@ public class ConcertServiceImpl implements ConcertService {
     private final ConcertRepository concertRepository;
 
     private final ConcertMapper concertMapper;
+
+    private final UserService userService;
+
+    private final BookingService bookingService;
 
     @Override
     public ConcertResponse createConcert(ConcertRequest newConcert) {
@@ -53,12 +61,28 @@ public class ConcertServiceImpl implements ConcertService {
         return concertMapper.toResponse(concert);
     }
 
+    @Transactional
     @Override
     public void deleteConcert(UUID concertId) {
         if (!concertRepository.existsById(concertId)) {
             throw new ConcertNotFoundException(concertId);
         }
         concertRepository.deleteById(concertId);
+    }
+
+    @Transactional
+    @Override
+    public void addBookingInfo(UUID concertId, UUID userId) {
+        ConcertEntity concert = getById(concertId);
+        Integer ticketsNumber = concert.getTicketsNumber();
+
+        if (ticketsNumber == 0) {
+            throw new TicketsSoldOutException("Tickets are sold out for the concert: " + concert.getName());
+        }
+
+        UserEntity user = userService.getUserById(userId);
+        bookingService.addBooking(user, concert);
+        concert.setTicketsNumber(--ticketsNumber);
     }
 
     private ConcertEntity getById(UUID id) {

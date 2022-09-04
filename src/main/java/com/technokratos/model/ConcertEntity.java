@@ -8,8 +8,8 @@ import org.hibernate.annotations.Where;
 import javax.persistence.*;
 import java.util.Set;
 
-@ToString(callSuper = true)
-@EqualsAndHashCode(callSuper = true)
+@ToString(callSuper = true, exclude = "booking")
+@EqualsAndHashCode(callSuper = true, exclude = "booking")
 @Entity
 @Getter
 @Setter
@@ -29,10 +29,7 @@ public class ConcertEntity extends AbstractEntity {
     @Column(name = "tickets_number")
     private Integer ticketsNumber;
 
-    @ManyToMany
-    @JoinTable(name = "booking",
-            joinColumns = @JoinColumn(name = "concert_id"),
-            inverseJoinColumns = @JoinColumn(name = "account_id"))
-    private Set<UserEntity> users;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "concert")
+    private Set<BookingEntity> booking;
 
 }

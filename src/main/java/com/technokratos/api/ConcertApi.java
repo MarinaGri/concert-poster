@@ -3,10 +3,12 @@ package com.technokratos.api;
 import com.technokratos.dto.request.ConcertRequest;
 import com.technokratos.dto.response.ConcertResponse;
 import com.technokratos.dto.response.page.ConcertPage;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -36,11 +38,16 @@ public interface ConcertApi {
     @PutMapping(value = "/{concert-id}", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     ConcertResponse updateConcertById(@PathVariable("concert-id") UUID concertId,
-                                   @RequestBody ConcertRequest updatedConcert);
+                                      @RequestBody ConcertRequest updatedConcert);
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/{concert-id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     void deleteConcertById(@PathVariable("concert-id") UUID concertId);
 
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    @PostMapping(value = "/{concert-id}/user", produces = APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.OK)
+    void addBookingInfo(@PathVariable("concert-id") UUID concertId,
+                        @Parameter(hidden = true) @AuthenticationPrincipal(expression = "id") UUID userId);
 }

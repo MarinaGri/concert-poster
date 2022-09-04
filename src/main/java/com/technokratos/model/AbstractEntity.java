@@ -36,6 +36,6 @@ public abstract class AbstractEntity {
     private Instant updatedAt;
 
     @Column(name = "is_deleted")
-    private Boolean isDeleted;
+    private boolean deleted;
 
 }
