@@ -3,13 +3,14 @@ package com.technokratos.consts;
 import com.technokratos.dto.enums.Role;
 import com.technokratos.dto.request.UserExtendedRequest;
 import com.technokratos.dto.request.UserRequest;
+import com.technokratos.dto.response.UserResponse;
 import com.technokratos.model.UserEntity;
 
 import java.util.UUID;
 
 public class UserConst {
 
-    public static final UUID USER_ID = UUID.randomUUID();
+    public static final UUID USER_ID = UUID.fromString("123e4567-e89b-12d3-a456-426655440000");
 
     public static final String USER_EMAIL = "some_login@gmail.com";
 
@@ -69,5 +70,11 @@ public class UserConst {
             .email(USER_EMAIL)
             .role(USER_ROLE)
             .hashPassword(HASH_PASSWORD)
+            .build();
+
+    public static final UserResponse USER_RESPONSE = UserResponse.builder()
+            .id(USER_ID)
+            .email(USER_EMAIL)
+            .role(USER_ROLE)
             .build();
 }
