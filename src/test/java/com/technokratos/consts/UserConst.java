@@ -36,7 +36,6 @@ public class UserConst {
             .email(USER_EMAIL)
             .role(USER_ROLE)
             .hashPassword(HASH_PASSWORD)
-            .isDeleted(false)
             .build();
 
     public static final UserEntity USER_ENTITY = UserEntity.builder()
@@ -44,6 +43,5 @@ public class UserConst {
             .email(USER_EMAIL)
             .role(USER_ROLE)
             .hashPassword(HASH_PASSWORD)
-            .isDeleted(false)
             .build();
 }

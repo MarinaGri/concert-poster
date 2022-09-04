@@ -13,7 +13,7 @@ public interface UserMapper {
     @Mapping(target = "createdAt", ignore = true)
     @Mapping(target = "updatedAt", ignore = true)
     @Mapping(target = "hashPassword", ignore = true)
-    @Mapping(target = "isDeleted", constant = "false")
+    @Mapping(target = "deleted", ignore = true)
     UserEntity toEntity(UserExtendedRequest request);
 
     UserResponse toResponse(UserEntity entity);

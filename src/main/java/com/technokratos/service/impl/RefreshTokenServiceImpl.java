@@ -29,7 +29,6 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
         UserRefreshTokenEntity userRefreshToken = UserRefreshTokenEntity.builder()
                 .expiryDate(Instant.now().plusMillis(expirationRefreshInMills))
                 .user(user)
-                .isDeleted(false)
                 .build();
 
         return refreshTokenRepository.save(userRefreshToken);

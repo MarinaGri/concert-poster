@@ -1,6 +1,6 @@
 package com.technokratos.service;
 
-import com.technokratos.config.ServiceTestConfig;
+import com.technokratos.config.UserServiceTestConfig;
 import com.technokratos.exception.UserAlreadyExistsException;
 import com.technokratos.repository.UserRepository;
 import com.technokratos.service.impl.UserServiceImpl;
@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {
-        ServiceTestConfig.class, UserServiceImpl.class, UserMapperImpl.class
+        UserServiceTestConfig.class, UserServiceImpl.class, UserMapperImpl.class
 })
 public class UserServiceTest {
 

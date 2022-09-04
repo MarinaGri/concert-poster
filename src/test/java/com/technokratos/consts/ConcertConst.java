@@ -53,7 +53,6 @@ public class ConcertConst {
             .name(CONCERT_NAME)
             .description(CONCERT_DESCRIPTION)
             .ticketsNumber(TICKETS_NUMBER)
-            .isDeleted(false)
             .build();
 
     public static final ConcertEntity CONCERT_ENTITY = ConcertEntity.builder()
@@ -61,7 +60,6 @@ public class ConcertConst {
             .name(CONCERT_NAME)
             .description(CONCERT_DESCRIPTION)
             .ticketsNumber(TICKETS_NUMBER)
-            .isDeleted(false)
             .build();
 
     public static final Page<ConcertEntity> CONCERT_ENTITY_PAGE =

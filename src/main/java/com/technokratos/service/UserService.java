@@ -14,4 +14,7 @@ public interface UserService {
     UserResponse login(UserRequest loginRequest);
 
     UserEntity getUserByEmail(String email);
+
+    UserEntity getUserById(UUID id);
+
 }

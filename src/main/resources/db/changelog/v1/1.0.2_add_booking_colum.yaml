@@ -1,0 +1,27 @@
+databaseChangeLog:
+  - changeSet:
+      id: 05_add_booking_colums
+      author: Marina
+      changes:
+        - addColumn:
+            tableName: booking
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    primaryKeyName: pk_account_refresh_token
+                  name: id
+                  type: UUID
+              - column:
+                  name: created_at
+                  type: TIMESTAMP WITHOUT TIME ZONE
+                  defaultValueComputed: NOW()
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP WITHOUT TIME ZONE
+                  defaultValueComputed: NOW()
+              - column:
+                  name: is_deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: false

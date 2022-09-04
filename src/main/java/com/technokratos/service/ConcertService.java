@@ -19,4 +19,6 @@ public interface ConcertService {
 
     void deleteConcert(UUID concertId);
 
+    void addBookingInfo(UUID concertId, UUID userId);
+
 }
