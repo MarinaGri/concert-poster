@@ -4,17 +4,21 @@ import com.technokratos.dto.enums.Role;
 import com.technokratos.dto.request.TokenCoupleRequest;
 import com.technokratos.dto.response.TokenCoupleResponse;
 import com.technokratos.dto.response.UserResponse;
+import com.technokratos.exception.token.AuthenticationHeaderException;
 import com.technokratos.model.RefreshTokenEntity;
 import com.technokratos.model.UserEntity;
 import com.technokratos.provider.JwtAccessTokenProvider;
 import com.technokratos.provider.JwtRefreshTokenProvider;
 import com.technokratos.service.JwtTokenService;
 import com.technokratos.service.UserService;
+import com.technokratos.util.AuthorizationHeaderUtil;
+import com.technokratos.util.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collections;
 import java.util.Date;
+import java.util.Optional;
 
 import static com.technokratos.consts.SecurityConstants.ROLE;
 
@@ -27,6 +31,8 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     private final JwtRefreshTokenProvider jwtRefreshTokenProvider;
 
     private final UserService userService;
+
+    private final UserMapper userMapper;
 
     @Override
     public TokenCoupleResponse generateTokenCouple(UserResponse userResponse) {
@@ -55,6 +61,15 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     @Override
     public UserEntity getUserByToken(String token) {
         return jwtAccessTokenProvider.getUserByToken(token);
+    }
+
+    @Override
+    public UserResponse getUserInfoByHeader(String header) {
+        Optional<String> token = AuthorizationHeaderUtil.getTokenFromAuthorizationHeader(header);
+        if (token.isEmpty()) {
+            throw new AuthenticationHeaderException("Header value not valid");
+        }
+        return userMapper.toResponse(getUserByToken(token.get()));
     }
 
     private String generateAccessToken(String subject, Role role) {

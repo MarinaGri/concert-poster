@@ -12,4 +12,7 @@ public interface JwtTokenService {
     TokenCoupleResponse refreshTokenCouple(TokenCoupleRequest tokenCoupleRequest);
 
     UserEntity getUserByToken(String token);
+
+    UserResponse getUserInfoByHeader(String header);
+
 }

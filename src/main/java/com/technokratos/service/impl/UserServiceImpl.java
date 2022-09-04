@@ -3,7 +3,6 @@ package com.technokratos.service.impl;
 import com.technokratos.dto.request.UserExtendedRequest;
 import com.technokratos.dto.request.UserRequest;
 import com.technokratos.dto.response.UserResponse;
-import com.technokratos.exception.CpUnauthorizedException;
 import com.technokratos.exception.UserAlreadyExistsException;
 import com.technokratos.exception.UserNotFoundException;
 import com.technokratos.model.UserEntity;
@@ -45,7 +44,7 @@ public class UserServiceImpl implements UserService {
         UserEntity user = getUserByEmail(email);
 
         if (!passwordEncoder.matches(loginRequest.getPassword(), user.getHashPassword())) {
-            throw new CpUnauthorizedException("User not found with email: " + email);
+            throw new UserNotFoundException("User not found with email: " + email);
         }
 
         return userMapper.toResponse(user);
