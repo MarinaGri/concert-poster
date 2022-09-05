@@ -23,7 +23,7 @@ import org.springframework.http.*;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.context.jdbc.Sql;
 
-import static com.technokratos.consts.SecurityConstants.BEARER;
+import static com.technokratos.consts.SecurityConst.BEARER;
 import static com.technokratos.consts.UserConst.*;
 import static com.technokratos.consts.ConcertConst.*;
 import static com.technokratos.consts.MessageConst.*;
@@ -35,7 +35,7 @@ import static org.junit.jupiter.api.Assertions.*;
 @Sql(scripts = "/sql/clear-account-table.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @Sql(scripts = "/sql/clear-concert-table.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class ConcertApiIntegrationTest extends PostgresTestContainer {
+class ConcertApiIntegrationTest extends PostgresTestContainer {
 
     @LocalServerPort
     private int serverPort;
@@ -55,12 +55,12 @@ public class ConcertApiIntegrationTest extends PostgresTestContainer {
     private BookingRepository bookingRepository;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         testUrl = "http://localhost:" + serverPort + "/api/v1/concert";
     }
 
     @Test
-    public void testSuccessfulAddConcert() {
+    void testSuccessfulAddConcert() {
         HttpEntity<ConcertRequest> concertRequest =
                 new HttpEntity<>(CONCERT_REQUEST, createAuthHeader(ADMIN_RESPONSE));
 
@@ -71,7 +71,7 @@ public class ConcertApiIntegrationTest extends PostgresTestContainer {
     }
 
     @Test
-    public void testAddConcertByCustomer() {
+    void testAddConcertByCustomer() {
         HttpEntity<ConcertRequest> concertRequest =
                 new HttpEntity<>(CONCERT_REQUEST, createAuthHeader(USER_RESPONSE));
 
@@ -83,7 +83,7 @@ public class ConcertApiIntegrationTest extends PostgresTestContainer {
     }
 
     @Test
-    public void testSuccessfulGetConcert() {
+    void testSuccessfulGetConcert() {
         HttpEntity<Void> concertRequest = new HttpEntity<>(createAuthHeader(USER_RESPONSE));
 
         ResponseEntity<ConcertResponse> actualResponse =
@@ -93,7 +93,7 @@ public class ConcertApiIntegrationTest extends PostgresTestContainer {
     }
 
     @Test
-    public void testSuccessfulGetConcertPage() {
+    void testSuccessfulGetConcertPage() {
         HttpEntity<Void> concertRequest = new HttpEntity<>(createAuthHeader(USER_RESPONSE));
         ResponseEntity<ConcertPage> actualResponse =
                 restTemplate.exchange(testUrl, HttpMethod.GET, concertRequest, ConcertPage.class);
@@ -102,7 +102,7 @@ public class ConcertApiIntegrationTest extends PostgresTestContainer {
     }
 
     @Test
-    public void testSuccessfulUpdateConcert() {
+    void testSuccessfulUpdateConcert() {
         HttpEntity<ConcertRequest> concertRequest
                 = new HttpEntity<>(CONCERT_UPDATE_REQUEST, createAuthHeader(ADMIN_RESPONSE));
 
@@ -113,7 +113,7 @@ public class ConcertApiIntegrationTest extends PostgresTestContainer {
     }
 
     @Test
-    public void testSuccessfulDeleteConcert() {
+    void testSuccessfulDeleteConcert() {
         HttpEntity<Void> concertRequest = new HttpEntity<>(createAuthHeader(ADMIN_RESPONSE));
         restTemplate.exchange(testUrl + "/" + CONCERT_ID, HttpMethod.DELETE, concertRequest, void.class);
 
@@ -121,7 +121,7 @@ public class ConcertApiIntegrationTest extends PostgresTestContainer {
     }
 
     @Test
-    public void testSuccessfulBooking() {
+    void testSuccessfulBooking() {
         Long countBookingBefore = bookingRepository.countBookingEntitiesByConcertId(CONCERT_ID);
 
         HttpEntity<Void> concertRequest = new HttpEntity<>(createAuthHeader(USER_RESPONSE));
@@ -141,7 +141,7 @@ public class ConcertApiIntegrationTest extends PostgresTestContainer {
     @Sql("/sql/add-popular-concert.sql")
     @Sql(scripts = "/sql/clear-account-table.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
     @Sql(scripts = "/sql/clear-concert-table.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
-    public void testTicketsSoldOut() {
+    void testTicketsSoldOut() {
         HttpEntity<Void> concertRequest = new HttpEntity<>(createAuthHeader(USER_RESPONSE));
         ResponseEntity<ExceptionMessage> actualResponse = restTemplate.exchange(
                 testUrl + "/" + POPULAR_CONCERT_ID + "/user",

@@ -33,6 +33,32 @@
     `docker build -t concert_poster_image .` 
 
 3. Поднять docker-compose:\
-    `docker-compose up`
+    `docker-compose up -d`
 
 4. По url-y `http://localhost/swagger-ui/index.html` доступен интерфейс для тестирования
+
+* Запросы permit all:\
+  a. `POST api/v1/user`\
+  b. `POST api/v1/user/login`\
+  c. `POST api/v1/token/refresh`
+
+* Запросы для авторизованного пользователя:\
+  a. `GET api/v1/token/user`
+
+* Запросы для CUSTOMER:\
+  a. `GET api/v1/concert`\
+  b. `GET api/v1/concert/{concert-id}`\
+  c. `POST api/v1/concert/{concert-id}/user`    
+
+* Запросы для ADMIN:\
+  a. `POST api/v1/concert`\
+  b. `GET api/v1/concert/{concert-id}`\
+  c. `GET api/v1/concert`\
+  d. `PUT api/v1/concert/{concert-id}`\
+  e. `DELETE api/v1/concert/{concert-id}`            
+
+5. Информация о покрытии тестами содержится в `build/reports/jacoco/test/html/`
+
+### Диаграмма базы данных
+
+![Diagram BD](img/db-diagram.png)

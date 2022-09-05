@@ -26,7 +26,7 @@ import static org.mockito.Mockito.when;
 @ContextConfiguration(classes = {
         ConcertServiceTestConfig.class, ConcertServiceImpl.class, ConcertMapperImpl.class
 })
-public class ConcertServiceTest {
+class ConcertServiceTest {
 
     @Autowired
     private ConcertService concertService;
@@ -35,7 +35,7 @@ public class ConcertServiceTest {
     private ConcertRepository concertRepository;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         when(concertRepository.save(NEW_CONCERT_ENTITY))
                 .thenReturn(CONCERT_ENTITY);
 
@@ -50,32 +50,33 @@ public class ConcertServiceTest {
     }
 
     @Test
-    public void testSuccessfulCreateConcert() {
+    void testSuccessfulCreateConcert() {
         ConcertResponse actualResponse = concertService.createConcert(CONCERT_REQUEST);
         assertEquals(CONCERT_RESPONSE, actualResponse);
     }
 
     @Test
-    public void testSuccessfulGetConcert() {
+    void testSuccessfulGetConcert() {
         ConcertResponse actualResponse = concertService.getConcertById(CONCERT_ID);
         assertEquals(CONCERT_RESPONSE, actualResponse);
     }
 
     @Test
-    public void testSuccessfulGetConcertPage() {
+    void testSuccessfulGetConcertPage() {
         ConcertPage actualResponse = concertService.getConcertPage(CONCERT_PAGEABLE);
         assertEquals(CONCERT_PAGE_RESPONSE, actualResponse);
     }
 
     @Test
-    public void testSuccessfulUpdateConcert() {
+    void testSuccessfulUpdateConcert() {
         ConcertResponse actualResponse = concertService.updateConcert(CONCERT_ID, CONCERT_REQUEST);
         assertEquals(CONCERT_RESPONSE, actualResponse);
     }
 
     @Test
-    public void testFailureDeleteConcert() {
+    void testFailureDeleteConcert() {
+        UUID concertId = UUID.randomUUID();
         assertThrows(ConcertNotFoundException.class,
-                () -> concertService.deleteConcert(UUID.randomUUID()));
+                () -> concertService.deleteConcert(concertId));
     }
 }

@@ -18,7 +18,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.technokratos.consts.SecurityConstants.ROLE;
+import static com.technokratos.consts.SecurityConst.ROLE;
 
 @RequiredArgsConstructor
 @Component

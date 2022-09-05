@@ -6,7 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 import java.util.Objects;
 import java.util.Optional;
 
-import static com.technokratos.consts.SecurityConstants.BEARER;
+import static com.technokratos.consts.SecurityConst.BEARER;
 
 @UtilityClass
 public class HttpRequestUtil {

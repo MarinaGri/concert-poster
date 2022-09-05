@@ -15,12 +15,13 @@ import com.technokratos.util.AuthorizationHeaderUtil;
 import com.technokratos.util.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Collections;
 import java.util.Date;
 import java.util.Optional;
 
-import static com.technokratos.consts.SecurityConstants.ROLE;
+import static com.technokratos.consts.SecurityConst.ROLE;
 
 @Service
 @RequiredArgsConstructor
@@ -35,6 +36,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     private final UserMapper userMapper;
 
     @Override
+    @Transactional
     public TokenCoupleResponse generateTokenCouple(UserResponse userResponse) {
         String accessToken = generateAccessToken(userResponse.getEmail(), userResponse.getRole());
 
@@ -45,6 +47,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     }
 
     @Override
+    @Transactional
     public TokenCoupleResponse refreshTokenCouple(TokenCoupleRequest tokenCoupleRequest) {
         RefreshTokenEntity newRefreshToken = jwtRefreshTokenProvider.updateRefreshToken(
                 tokenCoupleRequest.getRefreshToken());
@@ -59,11 +62,13 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     }
 
     @Override
+    @Transactional
     public UserEntity getUserByToken(String token) {
         return jwtAccessTokenProvider.getUserByToken(token);
     }
 
     @Override
+    @Transactional
     public UserResponse getUserInfoByHeader(String header) {
         Optional<String> token = AuthorizationHeaderUtil.getTokenFromAuthorizationHeader(header);
         if (token.isEmpty()) {

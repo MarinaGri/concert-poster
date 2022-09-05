@@ -1,15 +1,13 @@
 package com.technokratos.exception;
 
 
+import org.springframework.http.HttpStatus;
+
 import java.util.UUID;
 
-public class ConcertNotFoundException extends CpNotFoundException {
-
-    public ConcertNotFoundException() {
-        super("Concert not found");
-    }
+public class ConcertNotFoundException extends CpServiceException {
 
     public ConcertNotFoundException(UUID id) {
-        super("Concert not found with id:" + id);
+        super(HttpStatus.NOT_FOUND, "Concert not found with id:" + id);
     }
 }

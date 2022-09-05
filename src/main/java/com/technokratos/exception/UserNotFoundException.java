@@ -1,10 +1,12 @@
 package com.technokratos.exception;
 
 
-public class UserNotFoundException extends CpNotFoundException {
+import org.springframework.http.HttpStatus;
+
+public class UserNotFoundException extends CpServiceException {
 
     public UserNotFoundException(String message) {
-        super(message);
+        super(HttpStatus.NOT_FOUND, message);
     }
 
 }

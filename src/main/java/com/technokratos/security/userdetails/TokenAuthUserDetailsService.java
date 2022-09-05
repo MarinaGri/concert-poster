@@ -16,7 +16,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 
-import static com.technokratos.consts.SecurityConstants.ROLE_PREFIX;
+import static com.technokratos.consts.SecurityConst.ROLE_PREFIX;
 
 @RequiredArgsConstructor
 @Service

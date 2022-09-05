@@ -54,8 +54,8 @@ public interface UserApi {
                             )
                     }
             ),
-            @ApiResponse(responseCode = "400",
-                    description = "Validation failed or wrong password",
+            @ApiResponse(responseCode = "404",
+                    description = "User not found with email or password",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema = @Schema(implementation = ExceptionMessage.class)

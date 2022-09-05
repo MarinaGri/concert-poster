@@ -24,7 +24,7 @@ import org.springframework.test.context.jdbc.Sql;
 
 import java.util.UUID;
 
-import static com.technokratos.consts.SecurityConstants.BEARER;
+import static com.technokratos.consts.SecurityConst.BEARER;
 import static com.technokratos.consts.UserConst.*;
 import static com.technokratos.consts.MessageConst.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -32,7 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DirtiesContext
 @Sql(scripts = "/sql/clear-account-table.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class UserApiIntegrationTest extends PostgresTestContainer {
+class UserApiIntegrationTest extends PostgresTestContainer {
 
     @LocalServerPort
     private int serverPort;
@@ -52,12 +52,12 @@ public class UserApiIntegrationTest extends PostgresTestContainer {
     private JwtTokenService jwtTokenService;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         testUrl = "http://localhost:" + serverPort + "/api/v1/user";
     }
 
     @Test
-    public void testSuccessfulAddUser() {
+    void testSuccessfulAddUser() {
         HttpEntity<UserExtendedRequest> userRequest = new HttpEntity<>(USER_REQUEST);
 
         ResponseEntity<UUID> uuidResponse =
@@ -71,7 +71,7 @@ public class UserApiIntegrationTest extends PostgresTestContainer {
     }
 
     @Test
-    public void testAddUserWithSameEmail() {
+    void testAddUserWithSameEmail() {
         userRepository.save(REPEATED_USER_ENTITY);
 
         HttpEntity<UserExtendedRequest> userRequest = new HttpEntity<>(REPEATED_USER_REQUEST);
@@ -83,7 +83,7 @@ public class UserApiIntegrationTest extends PostgresTestContainer {
     }
 
     @Test
-    public void testSuccessfulLogin() {
+    void testSuccessfulLogin() {
         userService.addUser(USER_REQUEST);
 
         HttpEntity<UserRequest> loginRequest = new HttpEntity<>(LOGIN_REQUEST);
@@ -95,18 +95,18 @@ public class UserApiIntegrationTest extends PostgresTestContainer {
 
         UserResponse userResponse = jwtTokenService.getUserInfoByHeader(bearerHeader);
 
-        assertEquals(userResponse.getEmail(), USER_EMAIL);
-        assertEquals(userResponse.getRole(), USER_ROLE);
+        assertEquals(USER_EMAIL, userResponse.getEmail());
+        assertEquals(USER_ROLE, userResponse.getRole());
     }
 
     @Test
-    public void testLoginWithWrongEmail() {
+    void testLoginWithWrongEmail() {
         userService.addUser(USER_REQUEST);
         testFailureLogin(new HttpEntity<>(LOGIN_REQUEST_WRONG_EMAIL), WRONG_EMAIL_MESSAGE);
     }
 
     @Test
-    public void testLoginWithWrongPassword() {
+    void testLoginWithWrongPassword() {
         userService.addUser(USER_REQUEST);
         testFailureLogin(new HttpEntity<>(LOGIN_REQUEST_WRONG_PASSWORD), WRONG_PASSWORD_MESSAGE);
     }

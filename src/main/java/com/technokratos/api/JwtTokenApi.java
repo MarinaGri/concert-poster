@@ -38,7 +38,7 @@ public interface JwtTokenApi {
 
     @Operation(summary = "Getting information about user by token")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "User' information",
+            @ApiResponse(responseCode = "200", description = "User's information",
                     content = {
                             @Content(mediaType = "application/json",
                                     schema =
