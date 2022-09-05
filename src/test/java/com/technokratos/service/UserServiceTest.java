@@ -27,7 +27,7 @@ import static org.mockito.Mockito.when;
 public class UserServiceTest {
 
     @Autowired
-    private UserServiceImpl userService;
+    private UserService userService;
 
     @Autowired
     private UserRepository userRepository;

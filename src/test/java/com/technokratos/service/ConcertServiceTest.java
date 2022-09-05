@@ -1,7 +1,6 @@
 package com.technokratos.service;
 
 import com.technokratos.config.ConcertServiceTestConfig;
-import com.technokratos.config.UserServiceTestConfig;
 import com.technokratos.dto.response.ConcertResponse;
 import com.technokratos.dto.response.page.ConcertPage;
 import com.technokratos.exception.ConcertNotFoundException;
@@ -30,7 +29,7 @@ import static org.mockito.Mockito.when;
 public class ConcertServiceTest {
 
     @Autowired
-    private ConcertServiceImpl concertService;
+    private ConcertService concertService;
 
     @Autowired
     private ConcertRepository concertRepository;

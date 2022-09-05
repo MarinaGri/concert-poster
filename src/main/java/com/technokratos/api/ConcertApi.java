@@ -45,7 +45,6 @@ public interface ConcertApi {
                     }
             )
     })
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.CREATED)
     ConcertResponse createConcert(@RequestBody ConcertRequest newConcert);
@@ -76,7 +75,6 @@ public interface ConcertApi {
                     }
             )
     })
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER')")
     @GetMapping(value = "/{concert-id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     ConcertResponse getConcertById(@PathVariable("concert-id") UUID concertId);
@@ -91,7 +89,6 @@ public interface ConcertApi {
                     }
             )
     })
-    @PreAuthorize("hasAnyRole('ROLE_ADMIN', 'ROLE_CUSTOMER')")
     @GetMapping(produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     ConcertPage getConcertPage(Pageable pageable);
@@ -152,7 +149,6 @@ public interface ConcertApi {
                     }
             )
     })
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping(value = "/{concert-id}", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     void deleteConcertById(@PathVariable("concert-id") UUID concertId);
@@ -183,7 +179,6 @@ public interface ConcertApi {
                     }
             )
     })
-    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @PostMapping(value = "/{concert-id}/user", produces = APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.OK)
     void addBookingInfo(@PathVariable("concert-id") UUID concertId,
