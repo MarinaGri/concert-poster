@@ -7,6 +7,7 @@ import com.technokratos.repository.BookingRepository;
 import com.technokratos.service.BookingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -17,6 +18,7 @@ public class BookingServiceImpl implements BookingService {
     private final BookingRepository bookingRepository;
 
     @Override
+    @Transactional
     public UUID addBooking(UserEntity user, ConcertEntity concert) {
         return bookingRepository.save(BookingEntity.builder()
                 .user(user)

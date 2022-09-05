@@ -44,9 +44,7 @@ public class TokenAuthorizationFilter extends RequestHeaderAuthenticationFilter 
                 SecurityContext context = SecurityContextHolder.getContext();
                 Authentication authentication = context.getAuthentication();
 
-                if (Objects.isNull(authentication)) {
-                    context.setAuthentication(authenticationToken);
-                } else if (!authentication.getCredentials().equals(token)) {
+                if (Objects.isNull(authentication) || !authentication.getCredentials().equals(token)) {
                     context.setAuthentication(authenticationToken);
                 }
             }

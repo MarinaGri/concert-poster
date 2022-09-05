@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {ControllerTestConfig.class, UserController.class})
-public class UserControllerTest {
+class UserControllerTest {
 
     @Autowired
     private UserController userController;
@@ -27,13 +27,13 @@ public class UserControllerTest {
     private UserService userService;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         when(userService.addUser(USER_REQUEST))
                 .thenReturn(USER_ID);
     }
 
     @Test
-    public void testSuccessfulAddUser() {
+    void testSuccessfulAddUser() {
         UUID actualResponse = userController.addUser(USER_REQUEST);
         assertEquals(USER_ID, actualResponse);
     }

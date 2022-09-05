@@ -17,7 +17,7 @@ import static org.mockito.Mockito.when;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {ControllerTestConfig.class, ConcertController.class})
-public class ConcertControllerTest {
+class ConcertControllerTest {
 
     @Autowired
     private ConcertController concertController;
@@ -26,7 +26,7 @@ public class ConcertControllerTest {
     private ConcertService concertService;
 
     @BeforeEach
-    public void setUp() {
+    void setUp() {
         when(concertService.createConcert(CONCERT_REQUEST))
                 .thenReturn(CONCERT_RESPONSE);
 
@@ -41,31 +41,31 @@ public class ConcertControllerTest {
     }
 
     @Test
-    public void testSuccessfulCreateConcert() {
+    void testSuccessfulCreateConcert() {
         ConcertResponse actualResponse = concertController.createConcert(CONCERT_REQUEST);
         assertEquals(CONCERT_RESPONSE, actualResponse);
     }
 
     @Test
-    public void testSuccessfulGetConcert() {
+    void testSuccessfulGetConcert() {
         ConcertResponse actualResponse = concertController.getConcertById(CONCERT_ID);
         assertEquals(CONCERT_RESPONSE, actualResponse);
     }
 
     @Test
-    public void testSuccessfulGetConcertPage() {
+    void testSuccessfulGetConcertPage() {
         ConcertPage actualResponse = concertController.getConcertPage(CONCERT_PAGEABLE);
         assertEquals(CONCERT_PAGE_RESPONSE, actualResponse);
     }
 
     @Test
-    public void testSuccessfulUpdateConcert() {
+    void testSuccessfulUpdateConcert() {
         ConcertResponse actualResponse = concertController.updateConcertById(CONCERT_ID, CONCERT_REQUEST);
         assertEquals(CONCERT_RESPONSE, actualResponse);
     }
 
     @Test
-    public void testSuccessfulDeleteConcert() {
+    void testSuccessfulDeleteConcert() {
         concertController.deleteConcertById(CONCERT_ID);
         verify(concertService).deleteConcert(CONCERT_ID);
     }

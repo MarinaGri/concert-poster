@@ -9,8 +9,8 @@ import com.technokratos.service.RefreshTokenService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.Instant;
 import java.util.UUID;
 
@@ -24,6 +24,7 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
     private final RefreshTokenRepository refreshTokenRepository;
 
     @Override
+    @Transactional
     public UserRefreshTokenEntity generateRefreshToken(UserEntity user) {
 
         UserRefreshTokenEntity userRefreshToken = UserRefreshTokenEntity.builder()
@@ -34,8 +35,8 @@ public class RefreshTokenServiceImpl implements RefreshTokenService {
         return refreshTokenRepository.save(userRefreshToken);
     }
 
-    @Transactional
     @Override
+    @Transactional
     public RefreshTokenEntity updateRefreshToken(String refreshToken) {
         UUID refreshTokenUuid = UUID.fromString(refreshToken);
 

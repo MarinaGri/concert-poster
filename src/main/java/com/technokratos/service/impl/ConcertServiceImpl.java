@@ -16,8 +16,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.util.UUID;
 
 @RequiredArgsConstructor
@@ -33,17 +33,20 @@ public class ConcertServiceImpl implements ConcertService {
     private final BookingService bookingService;
 
     @Override
+    @Transactional
     public ConcertResponse createConcert(ConcertRequest newConcert) {
         ConcertEntity concert = concertRepository.save(concertMapper.toEntity(newConcert));
         return concertMapper.toResponse(concert);
     }
 
     @Override
+    @Transactional
     public ConcertResponse getConcertById(UUID concertId) {
         return concertMapper.toResponse(getById(concertId));
     }
 
     @Override
+    @Transactional
     public ConcertPage getConcertPage(Pageable pageable) {
         Page<ConcertEntity> concertPage = concertRepository.findAll(pageable);
         return ConcertPage.builder()
@@ -53,16 +56,16 @@ public class ConcertServiceImpl implements ConcertService {
                 .build();
     }
 
-    @Transactional
     @Override
+    @Transactional
     public ConcertResponse updateConcert(UUID concertId, ConcertRequest updatedConcert) {
         ConcertEntity concert = getById(concertId);
         concertMapper.updateEntity(concert, updatedConcert);
         return concertMapper.toResponse(concert);
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void deleteConcert(UUID concertId) {
         if (!concertRepository.existsById(concertId)) {
             throw new ConcertNotFoundException(concertId);
@@ -70,13 +73,13 @@ public class ConcertServiceImpl implements ConcertService {
         concertRepository.deleteById(concertId);
     }
 
-    @Transactional
     @Override
+    @Transactional
     public void addBookingInfo(UUID concertId, UUID userId) {
         ConcertEntity concert = getById(concertId);
         Integer ticketsNumber = concert.getTicketsNumber();
 
-        if (ticketsNumber == 0) {
+        if (ticketsNumber < 1) {
             throw new TicketsSoldOutException("Tickets are sold out for the concert: " + concert.getName());
         }
 
