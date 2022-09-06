@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:13.3
+    container_name: postgres
+    environment:
+      POSTGRES_DB: cp-db
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: qwerty008
+    ports:
+      - '5433:5432'
+
+  concert_poster:
+    image: concert_poster_image
+    container_name: concert_poster
+    build:
+      context: .
+      dockerfile: Dockerfile
+    environment:
+      - DATASOURSE_URL=jdbc:postgresql://postgres:5432/cp-db
+      - DATASOURSE_USERNAME=postgres
+      - DATASOURSE_PASSWORD=qwerty008
+    ports:
+      - "80:80"
+    depends_on:
+      - postgres

@@ -1,0 +1,98 @@
+databaseChangeLog:
+  - changeSet:
+      id: 01_create_account_table
+      author: Marina
+      changes:
+        - createTable:
+            tableName: account
+            columns:
+              - column:
+                  constraints:
+                    nullable: FALSE
+                    primaryKey: TRUE
+                    primaryKeyName: pk_account
+                  name: id
+                  type: UUID
+              - column:
+                  name: created_at
+                  type: TIMESTAMP WITHOUT TIME ZONE
+                  defaultValueComputed: NOW()
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP WITHOUT TIME ZONE
+                  defaultValueComputed: NOW()
+              - column:
+                  name: is_deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: FALSE
+              - column:
+                  name: role
+                  type: VARCHAR(100)
+              - column:
+                  constraints:
+                    nullable: false
+                    unique: true
+                    constraintName: nc_account_email
+                  name: email
+                  type: VARCHAR(250)
+              - column:
+                  name: hash_password
+                  type: VARCHAR(250)
+  - changeSet:
+      id: 02_create_concert_table
+      author: Marina
+      changes:
+        - createTable:
+            tableName: concert
+            columns:
+              - column:
+                  constraints:
+                    nullable: FALSE
+                    primaryKey: TRUE
+                    primaryKeyName: pk_concert
+                  name: id
+                  type: UUID
+              - column:
+                  name: created_at
+                  type: TIMESTAMP WITHOUT TIME ZONE
+                  defaultValueComputed: NOW()
+              - column:
+                  name: updated_at
+                  type: TIMESTAMP WITHOUT TIME ZONE
+                  defaultValueComputed: NOW()
+              - column:
+                  name: is_deleted
+                  type: BOOLEAN
+                  defaultValueBoolean: FALSE
+              - column:
+                  name: name
+                  type: VARCHAR(250)
+              - column:
+                  name: description
+                  type: TEXT
+              - column:
+                  name: tickets_number
+                  type: INT
+  - changeSet:
+      id: 03_create_booking_table
+      author: Marina
+      changes:
+        - createTable:
+            tableName: booking
+            addPrimaryKey:
+              columnNames: account_id, concert_id
+            columns:
+              - column:
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_booking_account_id
+                    references: account(id)
+                  name: account_id
+                  type: UUID
+              - column:
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_booking_concert_id
+                    references: concert(id)
+                  name: concert_id
+                  type: UUID

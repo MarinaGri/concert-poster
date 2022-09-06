@@ -1,0 +1,23 @@
+server:
+  port: 80
+
+spring:
+  datasource:
+    url: ${DATASOURSE_URL}
+    driver-class-name: org.postgresql.Driver
+    username: ${DATASOURSE_USERNAME}
+    password: ${DATASOURSE_PASSWORD}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    show-sql: true
+    properties:
+      hibernate.format_sql: true
+
+jwt:
+  secret: jwt_super_secret_key
+  expiration:
+    access:
+      mills: 3600000
+    refresh:
+      mills: 86400000
